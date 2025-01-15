@@ -1,0 +1,9 @@
+.venv
+*.pdf
+*.xls*
+*.ppt*
+*.doc*
+uploads/*
+!uploads/.keep
+tmp/*
+!tmp/.keep

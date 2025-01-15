@@ -1,0 +1,28 @@
+services:
+  doc2md:
+    image: felipefontoura/doc2md:latest
+    networks:
+      - network_public
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 760M
+      labels:
+        - traefik.enable=true
+        - traefik.http.routers.doc2md.rule=Host(`api.doc2md.website.com`)
+        - traefik.http.routers.doc2md.entrypoints=websecure
+        - traefik.http.routers.doc2md.tls.certresolver=letsencryptresolver
+        - traefik.http.routers.doc2md.priority=1
+        - traefik.http.routers.doc2md.service=doc2md
+        - traefik.http.services.doc2md.loadbalancer.server.port=8080
+        - traefik.http.services.doc2md.loadbalancer.passHostHeader=true
+networks:
+  network_public:
+    name: network_public
+    external: true
