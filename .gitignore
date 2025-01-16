@@ -7,3 +7,6 @@ uploads/*
 !uploads/.keep
 tmp/*
 !tmp/.keep
+.env
+.env.*
+!.env.example

@@ -1,6 +1,14 @@
 from flask import Flask, request, jsonify
 from markitdown import MarkItDown
+from openai import OpenAI
+from dotenv import load_dotenv
+import os
+import mimetypes
 
+# Load environment variables
+load_dotenv()
+
+# Initialize Flask app
 app = Flask(__name__)
 markitdown = MarkItDown()
 
@@ -19,8 +27,22 @@ def convert():
         temp_path = f"uploads/temp_{file.filename}"
         file.save(temp_path)
 
+        # TODO add language on transcription engine https://github.com/microsoft/markitdown/blob/f58a864951da6c720d3e10987371133c67db296a/src/markitdown/_markitdown.py#L972
+
         # Process the file
-        result = markitdown.convert(temp_path)
+        client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+        md = MarkItDown(llm_client=client, llm_model="gpt-4o")
+
+        mimetype, _ = mimetypes.guess_type(file.filename)
+        is_image = mimetype and mimetype.startswith("image/")
+
+        if is_image:
+            result = md.convert(
+                temp_path,
+                llm_prompt="Write a detailed transcription for this image, only text and nothing more.",
+            )
+        else:
+            result = md.convert(temp_path)
 
         # Return the result
         return {"content": result.text_content}
