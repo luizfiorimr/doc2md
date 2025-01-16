@@ -20,7 +20,7 @@ services:
         - traefik.http.routers.doc2md.tls.certresolver=letsencryptresolver
         - traefik.http.routers.doc2md.priority=1
         - traefik.http.routers.doc2md.service=doc2md
-        - traefik.http.services.doc2md.loadbalancer.server.port=8080
+        - traefik.http.services.doc2md.loadbalancer.server.port=5000
         - traefik.http.services.doc2md.loadbalancer.passHostHeader=true
 networks:
   network_public:
