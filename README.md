@@ -24,14 +24,6 @@ curl -X POST \
   http://localhost:5000/convert
 ```
 
-## 📋 Table of Contents
-
-- [Features](#features)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Deployment](#deployment)
-- [Development](#development)
-
 ## ✨ Features
 
 - Convert Excel files to Markdown
@@ -102,7 +94,7 @@ services:
 
 ## 📝 License
 
-[MIT License](LICENSE)
+[MIT License](https://opensource.org/licenses/MIT)
 
 ---
 Made with ❤️ by Felipe Fontoura
