@@ -64,7 +64,7 @@ curl -X POST \
 
 ### Docker Stack Deployment
 
-Deploy using Docker Stack:
+Deploy using [Docker Stack](stack.yml):
 
 ```bash
 docker stack deploy --prune --resolve-image always -c stack.yml doc2md
