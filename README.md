@@ -19,8 +19,8 @@ Convert a document to Markdown:
 
 ```bash
 curl -X POST \
-  -H "Content-Type: multipart/form-data" \
-  -F "file=@your_document.xlsx" \
+  -H "Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" \
+  --data-binary "@your_document.xlsx" \
   http://localhost:5000/convert
 ```
 
@@ -30,7 +30,6 @@ curl -X POST \
 - Simple REST API interface
 - Docker support
 - Easy deployment with Docker Stack
-- Multipart file upload support
 
 ## 🛠️ Installation
 
@@ -54,9 +53,10 @@ docker run -d -p 5000:5000 felipefontoura/doc2md
 
 #### Convert Document
 
-```bash
+ ```bash
 curl -X POST \
-  -F "file=@file.xlsx" \
+  -H "Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" \
+  --data-binary "@your_document.xlsx" \
   http://localhost:5000/convert
 ```
 

@@ -16,16 +16,26 @@ markitdown = MarkItDown()
 @app.route("/convert", methods=["POST"])
 def convert():
     try:
-        if "file" not in request.files:
-            return jsonify({"error": "No file provided"}), 400
+        # Check if content type is provided
+        if not request.content_type:
+            return jsonify({"error": "Content-Type header is required"}), 400
 
-        file = request.files["file"]
-        if file.filename == "":
-            return jsonify({"error": "No file selected"}), 400
+        # Get the binary data and content type
+        file_data = request.get_data()
+        content_type = request.content_type
 
-        # Save the uploaded file temporarily
-        temp_path = f"uploads/temp_{file.filename}"
-        file.save(temp_path)
+        if not file_data:
+            return jsonify({"error": "No file data provided"}), 400
+
+        # Determine file extension from content type
+        extension = mimetypes.guess_extension(content_type) or ""
+        temp_filename = f"temp_file{extension}"
+        temp_path = os.path.join("uploads", temp_filename)
+
+        # Save the binary data to a temporary file
+        os.makedirs("uploads", exist_ok=True)
+        with open(temp_path, "wb") as f:
+            f.write(file_data)
 
         # TODO add language on transcription engine https://github.com/microsoft/markitdown/blob/f58a864951da6c720d3e10987371133c67db296a/src/markitdown/_markitdown.py#L972
 
@@ -33,8 +43,7 @@ def convert():
         client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
         md = MarkItDown(llm_client=client, llm_model="gpt-4o")
 
-        mimetype, _ = mimetypes.guess_type(file.filename)
-        is_image = mimetype and mimetype.startswith("image/")
+        is_image = content_type.startswith("image/")
 
         if is_image:
             result = md.convert(
@@ -45,7 +54,7 @@ def convert():
             result = md.convert(temp_path)
 
         # Return the result
-        return {"content": result.text_content}
+        return jsonify({"content": result.text_content})
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
