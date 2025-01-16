@@ -77,6 +77,8 @@ version: '3.7'
 services:
   doc2md:
     image: felipefontoura/doc2md:latest
+    environment:
+      - OPENAI_API_KEY=sk-xxx
     ports:
       - "5000:5000"
     deploy:

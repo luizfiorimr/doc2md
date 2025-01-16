@@ -3,6 +3,8 @@ services:
     image: felipefontoura/doc2md:latest
     networks:
       - network_public
+    environment:
+      - OPENAI_API_KEY=sk-xxx
     deploy:
       mode: replicated
       replicas: 1
