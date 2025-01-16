@@ -26,7 +26,7 @@ curl -X POST \
 
 ## ✨ Features
 
-- Convert Excel files to Markdown
+- Convert multiples files to Markdown (PDF, PowerPoint, Word, Excel, Images, Audio, HTML, CSV, JSON, XML and ZIP).
 - Simple REST API interface
 - Docker support
 - Easy deployment with Docker Stack
