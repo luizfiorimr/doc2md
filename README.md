@@ -53,11 +53,11 @@ docker run -d -p 5000:5000 felipefontoura/doc2md
 
 #### Convert Document
 
- ```bash
+```bash
 curl -X POST \
-  -H "Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" \
-  --data-binary "@your_document.xlsx" \
-  http://localhost:5000/convert
+ -H "Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" \
+ --data-binary "@your_document.xlsx" \
+ http://localhost:5000/convert
 ```
 
 ## 📦 Deployment
@@ -73,12 +73,13 @@ docker stack deploy --prune --resolve-image always -c stack.yml doc2md
 Example `doc2md.yml`:
 
 ```yaml
-version: '3.7'
+version: "3.7"
 services:
   doc2md:
     image: felipefontoura/doc2md:latest
     environment:
       - OPENAI_API_KEY=sk-xxx
+      - LLM_MODEL=gpt-4o
     ports:
       - "5000:5000"
     deploy:
@@ -99,4 +100,5 @@ services:
 [MIT License](https://opensource.org/licenses/MIT)
 
 ---
+
 Made with ❤️ by Felipe Fontoura
