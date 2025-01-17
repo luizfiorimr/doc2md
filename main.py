@@ -41,7 +41,7 @@ def convert():
 
         # Process the file
         client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
-        md = MarkItDown(llm_client=client, llm_model="gpt-4o")
+        md = MarkItDown(llm_client=client, llm_model=os.getenv("LLM_MODEL", "gpt-4o"))
 
         is_image = content_type.startswith("image/")
 
