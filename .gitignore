@@ -1,12 +1,19 @@
-.venv
-*.pdf
-*.xls*
-*.ppt*
-*.doc*
-uploads/*
-!uploads/.keep
-tmp/*
-!tmp/.keep
+# Environment variables
 .env
-.env.*
-!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Uploads
+uploads/
+
+# ASDF tools
+.tools-versions
+
+# Virtual Environment
+venv/
+env/
+.venv
+

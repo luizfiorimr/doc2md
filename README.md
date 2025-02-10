@@ -27,6 +27,7 @@ curl -X POST \
 ## ✨ Features
 
 - Convert multiples files to Markdown (PDF, PowerPoint, Word, Excel, Images, Audio, HTML, CSV, JSON, XML and ZIP).
+- OCR for PDF files.
 - Simple REST API interface
 - Docker support
 - Easy deployment with Docker Stack
@@ -57,7 +58,7 @@ docker run -d -p 5000:5000 felipefontoura/doc2md
 curl -X POST \
  -H "Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" \
  --data-binary "@your_document.xlsx" \
- http://localhost:5000/convert
+ http://localhost:5000/convert?ocr=true/false
 ```
 
 ## 📦 Deployment
@@ -79,7 +80,9 @@ services:
     image: felipefontoura/doc2md:latest
     environment:
       - OPENAI_API_KEY=sk-xxx
-      - LLM_MODEL=gpt-4o
+      - LLM_MODEL=gpt-4o-mini
+      - WORKERS=4
+      - TIMEOUT=0
     ports:
       - "5000:5000"
     deploy:
