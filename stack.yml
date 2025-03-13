@@ -4,8 +4,8 @@ services:
     networks:
       - network_public
     environment:
-      - OPENAI_API_KEY=sk-xxx
-      - LLM_MODEL=gpt-4o-mini
+      - OPENAI_API_KEY=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
+      - LLM_MODEL=gpt-4o
       - WORKERS=4 # (2 x num_cores) + 1
       - TIMEOUT=0
     deploy:
